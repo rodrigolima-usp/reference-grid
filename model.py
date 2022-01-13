@@ -20,7 +20,7 @@ class DEANet(nn.Module):
         )
        
         self.output = nn.Linear(256, 2)
-        self.loss = 0
+        self.loss_fn = la.norm().cuda()
 
     def forward(self, leftEye, rightEye, headPose, referenceLeftEye, referenceRightEye, referenceHeadPose):
         feature_regular = self.regularDataBranch(leftEye, rightEye, headPose)
@@ -42,7 +42,7 @@ class DEANet(nn.Module):
         loss = 0
         k = len(data)
         for i in range(0,k):
-                loss = loss + la.norm(data['label'][i] - reference_data['label'][i], ord = 2) / k
+                loss = loss + self.loss_fn(data['label'][i] - reference_data['label'][i], ord = 2) / k
 
         return loss.item()
         
