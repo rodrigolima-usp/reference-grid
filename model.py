@@ -39,18 +39,19 @@ class DEANet(nn.Module):
                      reference_data['leftEye'].to(device), 
                      reference_data['rightEye'].to(device),
                      reference_data['headPose'].to(device))
-        
+        loss = 0
         k = len(data)
         for i in range(0,k):
-                self.loss = self.loss + la.norm(data['label'][i] - reference_data['label'][i], ord = 2)
+                loss = loss + la.norm(data['label'][i] - reference_data['label'][i], ord = 2) / k
 
+        return loss
+        
         #loss = 0
         #print(data)
         #for input_k in data:
         #    output = self(input_k)
         #    loss = loss + la.norm(input_k['rotulo'], output)
 
-        return self.loss/k
         
     def _init_weights(self):
         for m in self.modules():
