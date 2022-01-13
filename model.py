@@ -41,7 +41,7 @@ class DEANet(nn.Module):
                      reference_data['headPose'].to(device))
         
         k = len(data)
-        for i in range(0:k):
+        for i in range(0,k):
                 self.loss = self.loss + la.norm(data['label'][i] - reference_data['label'][i], dim=1, ord = 2)
 
         #loss = 0
