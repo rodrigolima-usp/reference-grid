@@ -42,7 +42,7 @@ class DEANet(nn.Module):
         
         k = len(data)
         for i in range(0,k):
-                self.loss = self.loss + la.norm(data['label'][i] - reference_data['label'][i], dim=1, ord = 2)
+                self.loss = self.loss + la.norm(data['label'][i] - reference_data['label'][i], ord = 2)
 
         #loss = 0
         #print(data)
@@ -50,7 +50,7 @@ class DEANet(nn.Module):
         #    output = self(input_k)
         #    loss = loss + la.norm(input_k['rotulo'], output)
 
-        return loss
+        return self.loss/k
         
     def _init_weights(self):
         for m in self.modules():
