@@ -44,7 +44,7 @@ class DEANet(nn.Module):
         for i in range(0,k):
                 loss = loss + la.norm(data['label'][i] - reference_data['label'][i], ord = 2) / k
 
-        return loss
+        return loss.item()
         
         #loss = 0
         #print(data)
